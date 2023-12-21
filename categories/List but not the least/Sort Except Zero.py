@@ -6,25 +6,14 @@ from collections.abc import Iterable
 
 
 def except_zero(items: list[int]) -> Iterable[int]:
-    index = None
-    value = None
-    checker = True
-    while checker:
-        checker = False
-        for i, item in enumerate(items):
-            if item == 0:
-                continue
-            if value is None:
-                index = i
-                value = item
-                continue
-            if item < value:
-                items[index] = item
-                items[i] = value
-                value = item
-                index = i
-                checker = True
-    return items
+    result = [0 if i == 0 else 1 for i in items]
+    non_zero_sorted = sorted([i for i in items if i != 0])
+    counter = 0
+    for i, item in enumerate(result):
+        if item == 1:
+            result[i] = non_zero_sorted[counter]
+            counter += 1
+    return result
 
 
 print("Example:")
