@@ -11,17 +11,12 @@ https://py.checkio.org/en/mission/zigzag-array/
 
 def create_zigzag(rows: int, cols: int, start: int = 1) -> list[list[int]]:
     result = []
-    pointer = 1
-    reversed_start = start
-    side = cols
     for row in range(rows):
-        if pointer % 2 != 0:
-            result.append([i for i in range(reversed_start, side + 1, 1)])
+        if row % 2 == 0:
+            result.append(list(range(start, start + cols)))
         else:
-            result.append([i for i in range(reversed_start + reversed_start - 2, cols, -1)])
-            side += cols
-        reversed_start += cols
-        pointer += 1
+            result.append(list(range(start + cols - 1, start - 1, -1)))
+        start += cols
     return result
 
 
