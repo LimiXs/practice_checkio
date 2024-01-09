@@ -2,41 +2,23 @@
 Create and return a new Iterable that contains the same elements as the given list items,
 but with the reversed order of the elements inside every maximal strictly ascending subsequence.
 This function should not modify the contents of the original list.
+https://py.checkio.org/en/mission/reverse-every-ascending/
 """
 from collections.abc import Iterable
 
 
 def reverse_ascending(items: list[int]) -> Iterable[int]:
-    result = []
-    if not items or len(items) == 1:
-        return items
-
-    flag = False
+    res = []
     start = 0
-    for i, v in enumerate(items):
-        if flag:
-            flag = False
+    for i in range(1, len(items)):
+        if items[i] <= items[i - 1]:
+            res += items[start:i][::-1]
             start = i
-            continue
-        if i == 0:
-            continue
-
-        if v < items[i - 1] or (len(items) - 1 == i):
-            if len(items) - 1 == i:
-                end = i + 1
-                result += sorted(items[start:end], reverse=True)
-            else:
-                end = i
-                result += sorted(items[start:end], reverse=True)
-                if v < items[i + 1]:
-                    continue
-                result += [v]
-            flag = True
-    return result
+    return res + items[start:][::-1]
 
 
 print("Example:")
-print(list(reverse_ascending([1, 2, 3, 4, 5])))
+print(list(reverse_ascending([5, 7, 10, 4, 2, 7, 8, 1, 3])))
 
 # These "asserts" are used for self-checking
 assert list(reverse_ascending([1, 2, 3, 4, 5])) == [5, 4, 3, 2, 1]
