@@ -12,14 +12,21 @@ https://py.checkio.org/en/mission/missing-number/
 def missing_number(items: list[int]) -> int:
     if len(items) <= 2:
         return 0
+    items = sorted(items)
 
-    sorted_items = sorted(items)
+    start = items[1] - items[0]
+    end = items[-1] - items[-2]
 
-    for i, elem in enumerate(sorted_items):
+    if start == end or start < end:
+        step = start
+    else:
+        step = end
+
+    for i, v in enumerate(items):
         if i == 0:
             continue
-        if elem - items[i - 1] != 1:
-            return items[i - 1] + 1
+        if v - items[i - 1] != step:
+            return v - step
     return 0
 
 
