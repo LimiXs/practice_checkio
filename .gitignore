@@ -17,3 +17,5 @@ venv.bak/
 venv
 /.git/
 **/__pycache__/
+main.py
+.main.py
