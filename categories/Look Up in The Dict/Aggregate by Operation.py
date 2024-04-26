@@ -12,10 +12,11 @@ operations = {
 
 def aggr_operation(data: list[tuple[str, int]]) -> dict[str, int]:
     result = {}
-    for elm in data:
 
+    for elm in data:
         operator = elm[0][0]
         name_val = elm[0][1:]
+
         if not name_val:
             continue
 
