@@ -7,26 +7,33 @@ def beat_previous(digits: str) -> list[int]:
     cur_max = int(digits[0])
 
     digits = digits[1:]
-
     while digits:
-        zero_flag = True
 
-        for i, v in enumerate(digits):
-            if zero_flag and v == '0':
-                digits = digits[i+1:]
+        counter = 0
+        raise_value = int(digits[0])
+        while cur_max >= raise_value:
+            counter += 1
+            if cur_max > raise_value and counter == len(digits):
                 break
 
-            if v > cur_max:
-                cur_max = v
-                result.append(int(v))
-                digits = digits[i+1:]
+            raise_value = int(str(raise_value) + digits[counter])
+            if counter == len(digits) - 1:
                 break
+
+        if cur_max > raise_value:
+            break
+
+        result.append(raise_value)
+        if counter == len(digits) - 1:
+            break
+        cur_max = raise_value
+        digits = digits[counter+1:]
 
     return result
 
 
 print("Example:")
-print(beat_previous("001203"))
+print(beat_previous("77777777777777777777777"))
 
 # These "asserts" are used for self-checking
 assert beat_previous("600005") == [6]
